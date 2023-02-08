@@ -8,7 +8,10 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
