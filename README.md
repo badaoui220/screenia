@@ -25,7 +25,7 @@
 
 ## Introduction
 
-Precedent is an opinionated collection of components, hooks, and utilities for your Next.js project.
+Looking for a quick and easy way to capture a screenshot of a website? Look no further than our fast and reliable tool. Simply enter the URL and get your screenshot in seconds. Whether you need to capture it's free and open-source, our tool is the perfect solution. Try it now and see for yourself how easy it is to get a screenshot of any URL in seconds.
 
 ## One-click Deploy
 
@@ -37,7 +37,7 @@ You can deploy this template to Vercel with the button below:
 You can also clone & create this repo locally with the following command:
 
 ```bash
-npx create-next-app precedent --example "https://github.com/badaoui220/screenia"
+npx create-next-app screenia --example "https://github.com/badaoui220/screenia"
 ```
 
 ### Frameworks
