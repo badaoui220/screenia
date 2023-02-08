@@ -1,0 +1,23 @@
+name: Semantic release
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm install -g yarn && yarn install --frozen-lockfile
+      - name: Build app
+        run: npm install -g yarn && yarn build
+      - name: Semantic release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: npx semantic-release
