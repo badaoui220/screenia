@@ -18,6 +18,8 @@ async function getOptions() {
       args: chrome.args,
       executablePath: await chrome.executablePath,
       headless: chrome.headless,
+      ignoreDefaultArgs: ["--disable-extensions"],
+      ignoreHTTPSErrors: true,
     };
   }
   return options;
