@@ -25,11 +25,19 @@ const Home: NextPage = () => {
 
   const takeScreenshot = async (url: string) => {
     setLoading(true);
-    const data = await fetch(`/api/screenshot?url=${url}&type=base64`);
-    const base64 = await data.json();
-    base64?.image
-      ? setGeneratedScreen(`data:image/png;base64, ${base64?.image || ""}`)
-      : setGeneratedScreen("");
+    await fetch(`/api/screenshot?url=${url}`)
+      .then((response) => {
+        if (response.status === 500) {
+          setLoading(false);
+          setGeneratedScreen("");
+          return;
+        }
+        return response.blob();
+      })
+      .then((blob: any) => {
+        const url = URL.createObjectURL(blob);
+        setGeneratedScreen(url);
+      });
     setLoading(false);
   };
 

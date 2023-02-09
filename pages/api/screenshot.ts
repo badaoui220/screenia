@@ -31,11 +31,7 @@ export default async function handler(
 ) {
   const { url, type } = req.query;
 
-  const outPut = type
-    ? type === "base64"
-      ? { encoding: "base64" }
-      : { type }
-    : { type: "png" };
+  const outPut = type ? { type } : { type: "png" };
 
   if (!url) {
     return res.status(400).json({ error: "URL parameter is required" });
@@ -53,10 +49,8 @@ export default async function handler(
     });
     await page.waitForTimeout(2000);
     const screenshot = await page.screenshot(outPut);
-    if (type !== "base64") {
-      res.status(200).send(screenshot);
-    }
-    res.status(200).json({ image: screenshot });
+
+    res.status(200).setHeader("Content-Type", `image/png`).end(screenshot);
   } catch (error) {
     res.status(500).json({ error: (error as any).message });
   } finally {
