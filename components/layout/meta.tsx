@@ -3,8 +3,8 @@ import Head from "next/head";
 const DOMAIN = process.env.NEXT_PUBLIC_APP_URL;
 
 export default function Meta({
-  title = "Screenia - Building blocks for your Next.js project",
-  description = "Screenia is the all-in-one solution for your Next.js project. It includes a design system, authentication, analytics, and more.",
+  title = "Screenia - Free and Open-Source Website Screenshot Tool",
+  description = "Get instant website screenshots with Screenia, the fast and efficient tool. Simply enter the URL and get your snapshot in seconds. Try it now for free!",
   image = `${DOMAIN}/api/og`,
 }: {
   title?: string;
@@ -16,6 +16,26 @@ export default function Meta({
       <title>{title}</title>
       <meta name="description" content={description} />
       <link rel="icon" href="/favicon.ico" />
+      <link
+        rel="apple-touch-icon"
+        sizes="120x120"
+        href="/apple-touch-icon.png"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="/favicon-32x32.png"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href="/favicon-16x16.png"
+      />
+      <link rel="manifest" href="/site.webmanifest" />
+      <meta name="msapplication-TileColor" content="#da532c" />
+      <meta name="theme-color" content="#ffffff"></meta>
 
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,8 +46,8 @@ export default function Meta({
       <meta property="og:image" content={image} />
 
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@sbadaoui" />
-      <meta name="twitter:creator" content="@sbadaoui" />
+      <meta name="twitter:site" content="@s_badaoui" />
+      <meta name="twitter:creator" content="@s_badaoui" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />

@@ -9,6 +9,9 @@ export const config = {
 export default async function handler(req: NextRequest) {
   const { searchParams } = req.nextUrl;
   const title = searchParams.get("title") || "Screenia";
+  const description =
+    searchParams.get("description") ||
+    "Efficient Website Screenshot Creation in Seconds";
 
   return new ImageResponse(
     (
@@ -45,6 +48,18 @@ export default async function handler(req: NextRequest) {
         >
           {title}
         </h1>
+        <p
+          style={{
+            marginTop: "30px",
+            fontSize: "50px",
+            color: "black",
+            lineHeight: "2rem",
+            fontWeight: "lighter",
+            letterSpacing: "-0.05em",
+          }}
+        >
+          {description}
+        </p>
       </div>
     ),
     {

@@ -11,6 +11,8 @@ import Github from "@/components/shared/icons/github";
 import LoadingDots from "@/components/shared/icons/loading-dots";
 import { useEffect, useState } from "react";
 import Download from "@/components/shared/download";
+import Markdown from "@/components/shared/markdown";
+import { content, services } from "@/lib/content";
 
 const Home: NextPage = () => {
   const [generatedScreen, setGeneratedScreen] = useState<string>("");
@@ -86,12 +88,12 @@ const Home: NextPage = () => {
           className="max-w-screen-lg text-xl leading-tight tracking-tight text-black text-opacity-70 lg:text-2xl"
           variants={FADE_DOWN_ANIMATION_VARIANTS}
         >
-          Looking for a quick and easy way to capture a screenshot of a website?
-          Look no further than our fast and reliable tool. Simply enter the URL
-          and get your screenshot in seconds. Whether you need to capture
-          it&apos;s free and open-source, our tool is the perfect solution. Try
-          it now and see for yourself how easy it is to get a screenshot of any
-          URL in seconds.
+          Looking for a quick and easy solution to grab a webpage screenshot?
+          Look no farther than our dependable and quick tool. Enter the URL and
+          you&apos;ll have your snapshot in seconds. Screenia is the ideal
+          answer if you need to capture it&apos;s free and open-source. Try it
+          out right now and see for yourself how simple it is to capture a
+          screenshot of any URL in seconds.
         </motion.p>
         <motion.form
           className="max-w-lg mx-auto space-y-4 mt-14 sm:space-x-4 sm:flex sm:space-y-0 sm:items-end"
@@ -100,7 +102,7 @@ const Home: NextPage = () => {
         >
           <div className="flex-1">
             <label htmlFor="url" className="sr-only">
-              Website url
+              Enter URL
             </label>
             <div>
               <input
@@ -130,65 +132,27 @@ const Home: NextPage = () => {
           className="flex items-center justify-center mt-6 space-x-6 sm:space-x-8"
           variants={FADE_DOWN_ANIMATION_VARIANTS}
         >
-          <li className="flex items-center">
-            <svg
-              className="w-5 h-5 mr-2 text-gray-400"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-            <span className="text-xs font-medium text-gray-900 sm:text-sm">
-              Free
-            </span>
-          </li>
-
-          <li className="flex items-center">
-            <svg
-              className="w-5 h-5 mr-2 text-gray-400"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-            <span className="text-xs font-medium text-gray-900 sm:text-sm">
-              In seconds
-            </span>
-          </li>
-
-          <li className="flex items-center">
-            <svg
-              className="w-5 h-5 mr-2 text-gray-400"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-            <span className="text-xs font-medium text-gray-900 sm:text-sm">
-              API Ready
-            </span>
-          </li>
+          {services?.map((service: string) => (
+            <li className="flex items-center" key={service}>
+              <svg
+                className="w-5 h-5 mr-2 text-gray-400"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+              <span className="text-xs font-medium text-gray-900 sm:text-sm">
+                {service}
+              </span>
+            </li>
+          ))}
         </motion.ul>
       </motion.div>
       <div className="grid items-start justify-start w-full max-w-screen-xl grid-cols-1 gap-5 px-5 my-16 md:grid-cols-3 xl:px-0">
@@ -214,7 +178,7 @@ const Home: NextPage = () => {
           </div>
         </div>
         <div className="relative col-span-1 overflow-hidden bg-white rounded-xl">
-          <h2 className="p-5 text-2xl font-bold">API Call Code</h2>
+          <h2 className="p-5 text-2xl font-bold">API Code</h2>
           <CopyBlock
             text={`
   let url = '${process.env.NEXT_PUBLIC_APP_URL}/api/screenshot?url=${url}';
@@ -231,6 +195,7 @@ const Home: NextPage = () => {
           />
         </div>
       </div>
+      <Markdown content={content} />
     </Layout>
   );
 };
