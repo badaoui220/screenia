@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/badaoui220/screenia/compare/v1.0.0...v1.0.1) (2023-02-09)
+
+
+### Bug Fixes
+
+* fix sereval issues related to meta, content, favicons and og ([d16e80f](https://github.com/badaoui220/screenia/commit/d16e80f0ef22c257ac1c3b19c213456d539c35d9))
+
 # 1.0.0 (2023-02-08)
 
 
