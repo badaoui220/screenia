@@ -1,5 +1,27 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-core");
+const chrome = require("chrome-aws-lambda");
+
+const exePath = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+
+async function getOptions() {
+  const env = process.env.NODE_ENV;
+  let options;
+  if (env == "development") {
+    options = {
+      args: [],
+      executablePath: exePath,
+      headless: true,
+    };
+  } else {
+    options = {
+      args: chrome.args,
+      executablePath: await chrome.executablePath,
+      headless: chrome.headless,
+    };
+  }
+  return options;
+}
 
 export default async function handler(
   req: NextApiRequest,
@@ -17,13 +39,13 @@ export default async function handler(
     return res.status(400).json({ error: "URL parameter is required" });
   }
 
+  const options = await getOptions();
   let browser;
-
   try {
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch(options);
     const page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 1080, deviceScaleFactor: 2 });
-    await page.goto(url, {
+    await page.goto(url as string, {
       timeout: 15 * 1000,
       waitUntil: ["domcontentloaded"],
     });
