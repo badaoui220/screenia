@@ -1,5 +1,5 @@
 <a href="https://screenia.net">
-  <img alt="Screenia – Screenshot any url in seconds" src="https://screenia.net/api/og">
+  <img alt="Screenia – Screenshot any url in seconds" src="https://screenia.net/images/screenia-og.png">
   <h1 align="center">Screenia</h1>
 </a>
 

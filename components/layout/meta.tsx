@@ -5,7 +5,7 @@ const DOMAIN = process.env.NEXT_PUBLIC_APP_URL;
 export default function Meta({
   title = "Screenia - Free and Open-Source Website Screenshot Tool",
   description = "Get instant website screenshots with Screenia, the fast and efficient tool. Simply enter the URL and get your snapshot in seconds. Try it now for free!",
-  image = `${DOMAIN}/api/og`,
+  image = `${DOMAIN}/images/screenia-og.png`,
 }: {
   title?: string;
   description?: string;

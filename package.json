@@ -14,7 +14,6 @@
     "@headlessui/react": "^1.7.10",
     "@heroicons/react": "^2.0.15",
     "@next/font": "^13.1.6",
-    "@vercel/og": "^0.1.0",
     "framer-motion": "^9.0.2",
     "next": "latest",
     "react": "18.2.0",
