@@ -15,7 +15,7 @@
     "@headlessui/react": "^1.7.10",
     "@heroicons/react": "^2.0.15",
     "@next/font": "^13.1.6",
-    "chrome-aws-lambda": "^8.0.2",
+    "chrome-aws-lambda": "^9.1.0",
     "framer-motion": "^9.0.2",
     "next": "latest",
     "puppeteer": "^10.4.0",
