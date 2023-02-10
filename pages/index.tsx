@@ -193,14 +193,15 @@ const Home: NextPage = () => {
   let url = '${process.env.NEXT_PUBLIC_APP_URL}/api/screenshot?url=${url}&type=png';
   let options = {method: 'GET'};
   fetch(url, options)
-  .then(res => res.blob())
-  .then(blob => URL.createObjectURL(blob))
-  .catch(err => console.error('error:' + err));
+    .then(res => res.blob())
+    .then(blob => URL.createObjectURL(blob))
+    .catch(err => console.error('error:' + err));
           `}
             language="javascript"
-            showLineNumbers="true"
             wrapLines
             theme={dracula}
+            showLineNumbers
+            codeBlock
           />
         </div>
       </div>
