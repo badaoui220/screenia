@@ -187,7 +187,7 @@ const Home: NextPage = () => {
         </div>
         <div className="relative col-span-1 overflow-hidden bg-white rounded-xl">
           <h2 className="px-5 pt-5 text-2xl font-bold">API Code</h2>
-          <p className="p-5">Supported image types (png, jpeg, webp)</p>
+          <p className="p-5">Supported image types (png, jpeg)</p>
           <CopyBlock
             text={`
   let url = '${process.env.NEXT_PUBLIC_APP_URL}/api/screenshot?url=${url}&type=png';

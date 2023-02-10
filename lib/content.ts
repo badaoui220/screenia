@@ -13,7 +13,7 @@ Advanced users may create screenshots with even more precision and quality using
 ## How to Capture a Screenshot of a Website
 With Screenia, taking a screenshot is simple. Enter the website's whole URL in the "Enter URL" section, then click "Generate." Since our script may only access resources that are available to everyone without requiring captchas, usernames, or passwords, the URL must be widely accessible.
 
-After generating the screenshot, you can preview the image and download it in your preferred format, including .jpg, .png, or .webp.
+After generating the screenshot, you can preview the image and download it in your preferred format, including .jpg or .png.
 
 ## Screenia allows you to take an unlimited number of screenshots.
 Screenia is free forever and open-source, allowing you to create unlimited screenshots at no cost.

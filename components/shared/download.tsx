@@ -6,7 +6,7 @@ import LoadingDots from "./icons/loading-dots";
 
 export default function Download({ url }: { url: string }) {
   const [loading, setLoading] = useState<boolean>(false);
-  const formats = ["png", "jpeg", "webp"];
+  const formats = ["png", "jpeg"];
 
   const handleDownload = async (format: string) => {
     setLoading(true);
