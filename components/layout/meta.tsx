@@ -51,6 +51,11 @@ export default function Meta({
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
+      <meta name="robots" content="index, follow" />
+      <meta
+        name="googlebot"
+        content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+      />
     </Head>
   );
 }
