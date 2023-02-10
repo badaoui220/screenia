@@ -29,9 +29,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const { url, type } = req.query;
+  const { url, type = "png", download = false } = req.query;
 
-  const outPut = type ? { type } : { type: "png" };
+  const outPut = { type };
 
   if (!url) {
     return res.status(400).json({ error: "URL parameter is required" });
@@ -48,8 +48,13 @@ export default async function handler(
     });
     await page.waitForTimeout(2000);
     const screenshot = await page.screenshot(outPut);
-
-    res.status(200).setHeader("Content-Type", `image/png`).end(screenshot);
+    if (download) {
+      res.status(200).send(screenshot);
+    } else {
+      res.statusCode = 200;
+      res.setHeader("Content-Type", `image/${type}`);
+      res.end(screenshot);
+    }
   } catch (error) {
     res.status(500).json({ error: (error as any).message });
   } finally {

@@ -54,19 +54,25 @@ export default function Layout({
       </main>
       <footer className="relative mt-5 bg-white border-t">
         <div className="flex flex-col items-center justify-between w-full h-16 max-w-screen-xl px-3 pt-4 mx-auto sm:h-20 sm:pt-2 sm:flex-row sm:mb-0">
-          <div>Made with love from Paris</div>
+          <div>
+            Made with <span className="text-xl text-red-500">❤</span> from Paris
+          </div>
           <div className="flex pb-4 space-x-4 sm:pb-0">
             <a
               className="group"
               aria-label="Said BADAOUI on Twitter"
               href="https://twitter.com/s_badaoui"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <Twitter />
             </a>
             <a
               className="group"
               aria-label="Said BADAOUI on GitHub"
-              href="https://github.com/Nutlope/twitterbio"
+              href="https://github.com/badaoui220/screenia"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <Github />
             </a>

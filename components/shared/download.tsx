@@ -1,17 +1,38 @@
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { useRouter } from "next/router";
+import slugify from "slugify";
+import LoadingDots from "./icons/loading-dots";
 
 export default function Download({ url }: { url: string }) {
-  const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
   const formats = ["png", "jpeg", "webp"];
+
+  const handleDownload = async (format: string) => {
+    setLoading(true);
+    await fetch(`/api/screenshot?url=${url}&type=${format}&download=true`)
+      .then((res) => res.blob())
+      .then((blob) => {
+        const file = window.URL.createObjectURL(blob);
+        let a = document.createElement("a");
+        a.href = file;
+        a.download = `screenia_${slugify(url, {
+          lower: true,
+          strict: true,
+        })}.${format}`;
+        a.click();
+      });
+    setLoading(false);
+  };
   return (
     <div className="absolute w-56 text-right top-10 right-10">
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-black rounded-md bg-opacity-80 hover:bg-opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-            Download
+          <Menu.Button
+            disabled={loading}
+            className="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium tracking-tight text-white bg-black rounded-md bg-opacity-80 hover:bg-opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+          >
+            {loading ? <LoadingDots color="white" /> : "Download"}
             <ChevronDownIcon
               className="w-5 h-5 ml-2 -mr-1 text-violet-200 hover:text-violet-100"
               aria-hidden="true"
@@ -36,9 +57,7 @@ export default function Download({ url }: { url: string }) {
                       className={`${
                         active ? "bg-black text-white" : "text-gray-900"
                       } group flex w-full items-center text-sm font-medium rounded-md px-2 py-2`}
-                      onClick={() =>
-                        router.push(`/api/screenshot?url=${url}&type=${format}`)
-                      }
+                      onClick={() => handleDownload(format)}
                     >
                       {format}
                     </button>
