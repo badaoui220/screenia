@@ -15,13 +15,11 @@ import Markdown from "@/components/shared/markdown";
 import { content, services } from "@/lib/content";
 
 const Home: NextPage = () => {
-  const [generatedScreen, setGeneratedScreen] = useState<string>("");
+  const [generatedScreen, setGeneratedScreen] = useState<string>(
+    "blob:https://www.screenia.best/e09e9973-52be-4316-baec-8533667a273b",
+  );
   const [loading, setLoading] = useState(false);
   const [url, setUrl] = useState("https://themeptation.net");
-
-  useEffect(() => {
-    takeScreenshot(url);
-  }, []);
 
   const takeScreenshot = async (url: string) => {
     setLoading(true);
