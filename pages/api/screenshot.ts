@@ -43,8 +43,11 @@ export default async function handler(
     browser = await puppeteer.launch(options);
     const page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 1080, deviceScaleFactor: 1 });
-    await page.goto(url as string);
-    await page.waitForTimeout(2000);
+    await page.goto(url as string, {
+      timeout: 15 * 1000,
+      waitUntil: ["load", "domcontentloaded", "networkidle0"],
+    });
+    // await page.waitForTimeout(2000);
     const screenshot = await page.screenshot(outPut);
     if (download) {
       res.status(200).send(screenshot);
