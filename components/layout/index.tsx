@@ -6,6 +6,7 @@ import useScroll from "@/lib/hooks/use-scroll";
 import Meta from "./meta";
 import Github from "../shared/icons/github";
 import Twitter from "../shared/icons/twitter";
+import Script from "next/script";
 
 export default function Layout({
   meta,
@@ -22,6 +23,19 @@ export default function Layout({
 
   return (
     <>
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA}`}
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', '${process.env.NEXT_PUBLIC_GA}');
+        `}
+      </Script>
       <Meta {...meta} />
       <div className="fixed w-full h-screen bg-gradient-to-r from-indigo-50 via-white to-yellow-50">
         <img
