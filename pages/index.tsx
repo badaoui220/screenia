@@ -9,14 +9,14 @@ import { FADE_DOWN_ANIMATION_VARIANTS } from "@/lib/constants";
 import Twitter from "@/components/shared/icons/twitter";
 import Github from "@/components/shared/icons/github";
 import LoadingDots from "@/components/shared/icons/loading-dots";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Download from "@/components/shared/download";
 import Markdown from "@/components/shared/markdown";
 import { content, services } from "@/lib/content";
 
 const Home: NextPage = () => {
   const [generatedScreen, setGeneratedScreen] = useState<string>(
-    "blob:https://www.screenia.best/e09e9973-52be-4316-baec-8533667a273b",
+    "/images/themeptation-screenshot.png",
   );
   const [loading, setLoading] = useState(false);
   const [url, setUrl] = useState("https://themeptation.net");
