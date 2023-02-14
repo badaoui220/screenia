@@ -44,7 +44,6 @@ export default async function handler(
     const page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 1080, deviceScaleFactor: 1 });
     await page.goto(url as string, {
-      timeout: 15 * 1000,
       waitUntil: ["load", "domcontentloaded", "networkidle0"],
     });
     await page.waitForTimeout(2000);
