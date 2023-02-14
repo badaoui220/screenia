@@ -15,7 +15,7 @@ async function getOptions() {
     };
   } else {
     options = {
-      args: chrome.args,
+      args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
       executablePath: await chrome.executablePath,
       headless: chrome.headless,
       ignoreDefaultArgs: ["--disable-extensions"],
@@ -44,10 +44,10 @@ export default async function handler(
     const page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 1080, deviceScaleFactor: 1 });
     await page.goto(url as string, {
-      timeout: 0,
-      waitUntil: "load",
+      timeout: 15 * 1000,
+      waitUntil: "networkidle0",
     });
-    // await page.waitForTimeout(2000);
+    await page.waitForTimeout(1000);
     const screenshot = await page.screenshot(outPut);
     if (download) {
       res.status(200).send(screenshot);
