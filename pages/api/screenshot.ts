@@ -15,11 +15,9 @@ async function getOptions() {
     };
   } else {
     options = {
-      args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+      args: chrome.args,
       executablePath: await chrome.executablePath,
       headless: chrome.headless,
-      ignoreDefaultArgs: ["--disable-extensions"],
-      ignoreHTTPSErrors: true,
     };
   }
   return options;
@@ -38,17 +36,17 @@ export default async function handler(
   }
 
   const options = await getOptions();
-  let browser;
+
   try {
-    browser = await puppeteer.launch(options);
+    const browser = await puppeteer.launch(options);
     const page = await browser.newPage();
+
     await page.setViewport({ width: 1920, height: 1080, deviceScaleFactor: 1 });
-    await page.goto(url as string, {
-      timeout: 15 * 1000,
-      waitUntil: "networkidle0",
-    });
-    await page.waitForTimeout(1000);
+    await page.goto(url as string);
+
     const screenshot = await page.screenshot(outPut);
+    await browser.close();
+
     if (download) {
       res.status(200).send(screenshot);
     } else {
@@ -58,9 +56,5 @@ export default async function handler(
     }
   } catch (error) {
     res.status(500).json({ error: (error as any).message });
-  } finally {
-    if (browser) {
-      await browser.close();
-    }
   }
 }
