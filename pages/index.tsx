@@ -153,18 +153,24 @@ const Home: NextPage = () => {
                     className={`${open ? "rotate-180 transform" : ""} h-5 w-5`}
                   />
                 </Disclosure.Button>
-                <Disclosure.Panel className="flex flex-wrap items-center gap-5 p-4 rounded-lg bg-slate-100">
-                  <label className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      name="fullscreen"
-                      className="accent-black"
-                      onChange={handleChangeChecked}
-                    />
-                    <div className="text-sm font-semibold text-slate-900">
-                      Fullscreen
-                    </div>
-                  </label>
+                <Disclosure.Panel className="flex flex-col p-4 rounded-lg bg-slate-100">
+                  <div className="flex flex-wrap items-center gap-5">
+                    <label className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        name="fullscreen"
+                        className="accent-black"
+                        onChange={handleChangeChecked}
+                      />
+                      <div className="text-sm font-semibold text-slate-900">
+                        Fullscreen (beta) *
+                      </div>
+                    </label>
+                  </div>
+                  <span className="mt-5 text-xs  text-slate-500">
+                    * this feature not working for large websites du to limits
+                    on vercel (hobby account) API (5ms)
+                  </span>
                 </Disclosure.Panel>
               </>
             )}
