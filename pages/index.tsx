@@ -153,7 +153,7 @@ const Home: NextPage = () => {
                     className={`${open ? "rotate-180 transform" : ""} h-5 w-5`}
                   />
                 </Disclosure.Button>
-                <Disclosure.Panel className="p-4 rounded-lg bg-slate-100">
+                <Disclosure.Panel className="flex flex-wrap items-center gap-5 p-4 rounded-lg bg-slate-100">
                   <label className="flex items-center space-x-2">
                     <input
                       type="checkbox"
