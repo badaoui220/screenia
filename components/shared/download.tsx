@@ -3,20 +3,25 @@ import { Fragment, useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import slugify from "slugify";
 import LoadingDots from "./icons/loading-dots";
+import { optionsToParams } from "@/lib/optionsToUrl";
 
-export default function Download({ url }: { url: string }) {
+export default function Download({ options }: any) {
   const [loading, setLoading] = useState<boolean>(false);
   const formats = ["png", "jpeg"];
 
   const handleDownload = async (format: string) => {
     setLoading(true);
-    await fetch(`/api/screenshot?url=${url}&type=${format}&download=true`)
+    await fetch(
+      `/api/screenshot?${optionsToParams(
+        options,
+      )}&type=${format}&download=true`,
+    )
       .then((res) => res.blob())
       .then((blob) => {
         const file = window.URL.createObjectURL(blob);
         let a = document.createElement("a");
         a.href = file;
-        a.download = `screenia_${slugify(url, {
+        a.download = `screenia_${slugify(options?.url, {
           lower: true,
           strict: true,
         })}.${format}`;

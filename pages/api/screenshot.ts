@@ -27,7 +27,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const { url, type = "png", download = false } = req.query;
+  const { url, type = "png", download = false, fullscreen = false } = req.query;
+  const height = !fullscreen ? 1080 : 0;
 
   const outPut = { type };
 
@@ -40,8 +41,7 @@ export default async function handler(
   try {
     const browser = await puppeteer.launch(options);
     const page = await browser.newPage();
-
-    await page.setViewport({ width: 1920, height: 1080, deviceScaleFactor: 1 });
+    await page.setViewport({ width: 1920, height, deviceScaleFactor: 1 });
     await page.goto(url as string);
 
     const screenshot = await page.screenshot(outPut);

@@ -13,17 +13,26 @@ import { useState } from "react";
 import Download from "@/components/shared/download";
 import Markdown from "@/components/shared/markdown";
 import { content, services } from "@/lib/content";
+import { Disclosure } from "@headlessui/react";
+import { ChevronUpIcon } from "@heroicons/react/20/solid";
+import { optionsToParams } from "@/lib/optionsToUrl";
 
 const Home: NextPage = () => {
   const [generatedScreen, setGeneratedScreen] = useState<string>(
     "/images/themeptation-screenshot.png",
   );
   const [loading, setLoading] = useState(false);
-  const [url, setUrl] = useState("https://themeptation.net");
+  const [options, setOptions] = useState<any>({
+    url: "https://themeptation.net",
+  });
 
-  const takeScreenshot = async (url: string) => {
+  const handleChangeChecked = (event: any) => {
+    setOptions((prev: any) => ({ ...prev, fullscreen: event.target.checked }));
+  };
+
+  const takeScreenshot = async (data: any) => {
     setLoading(true);
-    await fetch(`/api/screenshot?url=${url}`)
+    await fetch(`/api/screenshot?${optionsToParams(data)}`)
       .then((response) => {
         if (response.status === 500) {
           setLoading(false);
@@ -41,9 +50,9 @@ const Home: NextPage = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const url = e.target.url.value;
-    setUrl(url);
-    takeScreenshot(url);
+    const url = e.target?.url?.value;
+    setOptions((prev: any) => ({ ...prev, url }));
+    takeScreenshot({ ...options, url });
   };
   return (
     <Layout>
@@ -68,19 +77,19 @@ const Home: NextPage = () => {
             href="https://twitter.com/s_badaoui"
             target="_blank"
             rel="noreferrer"
-            className="flex items-center justify-center px-10 py-3 space-x-2 overflow-hidden transition-colors bg-blue-100 rounded-xl max-w-fit hover:bg-blue-200"
+            className="flex items-center justify-center px-10 py-3 space-x-2 overflow-hidden leading-5 transition-colors bg-blue-100 rounded-xl max-w-fit hover:bg-blue-200"
           >
-            <Twitter className="h-5 w-5 text-[#1d9bf0]" />
+            <Twitter className="h-5 w-5 text-[#1d9bf0] shrink-0" />
             <p className="font-semibold text-[#1d9bf0]">Follow me</p>
           </motion.a>
           <motion.a
-            className="flex items-center justify-center px-10 py-3 space-x-2 text-black transition-colors bg-white border border-gray-300 rounded-xl max-w-fit hover:border-gray-800"
+            className="flex items-center justify-center px-10 py-3 space-x-2 leading-5 text-black transition-colors bg-white border border-gray-300 rounded-xl max-w-fit hover:border-gray-800"
             href="https://github.com/badaoui220/screenia"
             target="_blank"
             rel="noopener noreferrer"
             variants={FADE_DOWN_ANIMATION_VARIANTS}
           >
-            <Github />
+            <Github className=" shrink-0" />
             <p className="font-semibold">Star on GitHub</p>
           </motion.a>
         </div>
@@ -102,37 +111,64 @@ const Home: NextPage = () => {
           screenshot of any URL in seconds.
         </motion.p>
         <motion.form
-          className="max-w-lg mx-auto space-y-4 mt-14 sm:space-x-4 sm:flex sm:space-y-0 sm:items-end"
+          className="max-w-lg mx-auto mt-14"
           variants={FADE_DOWN_ANIMATION_VARIANTS}
           onSubmit={handleSubmit}
         >
-          <div className="flex-1">
-            <label htmlFor="url" className="sr-only">
-              Enter URL
-            </label>
-            <div>
-              <input
-                className="block w-full px-4 py-3 text-base font-medium text-black placeholder-gray-500 border border-gray-300 rounded-lg sm:py-4 sm:text-sm focus:ring-gray-900 focus:border-gray-900"
-                type="url"
-                id="url"
-                pattern="https://.*"
-                placeholder="https://themeptation.net"
-                required
-              />
+          <div className="space-y-4 sm:flex sm:items-end sm:space-x-4 sm:space-y-0">
+            <div className="flex-1">
+              <label htmlFor="url" className="sr-only">
+                Enter URL
+              </label>
+              <div>
+                <input
+                  className="block w-full px-4 py-3 text-base font-medium text-black placeholder-gray-500 border border-gray-300 rounded-lg sm:py-4 sm:text-sm focus:ring-gray-900 focus:border-gray-900"
+                  type="url"
+                  id="url"
+                  pattern="https://.*"
+                  placeholder="https://themeptation.net"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="relative group">
+              <div className="absolute transitiona-all duration-1000 opacity-40 inset-0 bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:duration-200"></div>
+
+              <button
+                type="submit"
+                className="inline-flex min-h-[54px] relative items-center justify-center w-full sm:w-auto px-10 py-3 sm:py-3.5 font-semibold text-white transition-all duration-200 bg-black border border-transparent rounded-lg hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 disabled:bg-gray-200"
+                disabled={loading}
+              >
+                {loading ? <LoadingDots /> : "Generate"}
+              </button>
             </div>
           </div>
-
-          <div className="relative group">
-            <div className="absolute transitiona-all duration-1000 opacity-40 inset-0 bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:duration-200"></div>
-
-            <button
-              type="submit"
-              className="inline-flex min-h-[54px] relative items-center justify-center w-full sm:w-auto px-10 py-3 sm:py-3.5 font-semibold text-white transition-all duration-200 bg-black border border-transparent rounded-lg hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 disabled:bg-gray-200"
-              disabled={loading}
-            >
-              {loading ? <LoadingDots /> : "Generate"}
-            </button>
-          </div>
+          <Disclosure as="div" className="w-auto mt-4">
+            {({ open }) => (
+              <>
+                <Disclosure.Button className="flex px-4 py-2 text-sm font-medium text-left text-slate-900 focus:outline-none ">
+                  <span>More options</span>
+                  <ChevronUpIcon
+                    className={`${open ? "rotate-180 transform" : ""} h-5 w-5`}
+                  />
+                </Disclosure.Button>
+                <Disclosure.Panel className="p-4 rounded-lg bg-slate-100">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      name="fullscreen"
+                      className="accent-black"
+                      onChange={handleChangeChecked}
+                    />
+                    <div className="text-sm font-semibold text-slate-900">
+                      Fullscreen
+                    </div>
+                  </label>
+                </Disclosure.Panel>
+              </>
+            )}
+          </Disclosure>
         </motion.form>
         <motion.ul
           className="flex items-center justify-center mt-6 space-x-6 sm:space-x-8"
@@ -173,11 +209,11 @@ const Home: NextPage = () => {
             ) : null}
             {!loading && generatedScreen ? (
               <>
-                <Download url={url} />
+                <Download options={options} />
                 <img
                   className="object-cover w-full rounded-xl"
                   src={generatedScreen}
-                  alt={`screenia - screenshot of ${url}`}
+                  alt={`screenia - screenshot of ${options?.url}`}
                 />
               </>
             ) : null}
@@ -188,7 +224,9 @@ const Home: NextPage = () => {
           <p className="p-5">Supported image types (png, jpeg)</p>
           <CopyBlock
             text={`
-  let url = '${process.env.NEXT_PUBLIC_APP_URL}/api/screenshot?url=${url}&type=png';
+  let url = '${
+    process.env.NEXT_PUBLIC_APP_URL
+  }/api/screenshot?${optionsToParams(options)}&type=png';
   let options = {method: 'GET'};
   fetch(url, options)
     .then(res => res.blob())

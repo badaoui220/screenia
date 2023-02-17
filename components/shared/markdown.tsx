@@ -7,7 +7,7 @@ interface Props {
 
 const Markdown: FunctionComponent<Props> = ({ content }) => {
   return (
-    <div className="pt-20 prose lg:prose-xl">
+    <div className="px-5 pt-20 prose lg:prose-xl">
       <ReactMarkdown>{content}</ReactMarkdown>
     </div>
   );
