@@ -76,12 +76,7 @@ export default async function handler(
 
   try {
     const browser = await puppeteer.launch(options);
-    let page = null;
-    if (!fullscreen) {
-      page = await browser.newPage();
-    } else {
-      page = (await browser.pages())[0];
-    }
+    const page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 1080, deviceScaleFactor: 1 });
     await page.goto(url as string, { waitUntil: "networkidle2" });
 
