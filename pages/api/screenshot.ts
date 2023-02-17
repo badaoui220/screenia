@@ -94,3 +94,9 @@ export default async function handler(
     res.status(500).json({ error: (error as any).message });
   }
 }
+
+export const config = {
+  api: {
+    bodyParser: process.env.NODE_ENV !== "production",
+  },
+};
